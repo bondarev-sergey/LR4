@@ -1,0 +1,481 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.hidden {
+  overflow: hidden;
+}
+
+header {
+    padding: 0;
+    width: 100%;
+    background: rgb(68, 187, 255);
+    border-width: 2.5px;
+    border-style: inset;
+    border-color: blue;
+}
+
+.headerContent {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: auto 1vw auto 1vw;
+}
+
+.logo {
+    margin: auto 0;
+    background: url("img/logo.svg");
+    background-size: cover;
+    background-position: center center;
+    width: 60px;
+    height: 60px;
+}
+
+.title {
+    font-size: 32px;
+    font-family: 'Noto Sans', sans-serif;
+    padding-top: 0px;
+    margin: auto 0 auto 5vw;
+}
+
+.logo-and-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.greeting {
+  font-size: 20px;
+  font-family: 'Noto Sans', sans-serif;
+  font-style: italic;
+  padding-top: 0px;
+  margin: auto 2vw auto 0;
+}
+
+#out-button {
+  display: flex;
+  align-items: center;
+}
+
+.but {
+  margin: 0;
+  padding: 0 2vw;
+  width: auto;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.but:hover {
+  background: rgb(43, 156, 221);
+}
+
+.but:active {
+  background: rgb(126, 183, 216);
+}
+
+.modal {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s;
+  top: -1000px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: scroll;
+  padding: 60px 15px;
+}
+
+.modal_active {
+  position: fixed;
+  top: 0;
+  visibility: visible;
+  opacity: 1;
+  transition: .3s;
+}
+
+.modal__content {
+  width: 100%;
+  max-width: 400px;
+  padding: 50px;
+  background: rgb(68, 187, 255);
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0 5px 15px black;
+}
+
+.modal__container {
+  position: relative;
+  font-size: 1.4rem;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
+  padding: 0 0 70px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.form_input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 10px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  outline: none;
+  box-sizing: border-box;
+  height: 50px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.form_input_checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.form_input_checkbox + label::before {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.form_input_checkbox + label::before {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border: 1px solid #f85252;
+  border-radius: 0.25em;
+  margin-right: 0.5em;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
+}
+
+.form_input_checkbox:checked + label::before {
+  border-color: #0b76ef;
+  background-color: #0b76ef;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+}
+
+.form_input_checkbox:not(:disabled):not(:checked) + label:hover::before {
+  border-color: #b3d7ff;
+}
+
+.form_input_checkbox:not(:disabled):active + label::before {
+  background-color: #b3d7ff;
+  border-color: #b3d7ff;
+}
+
+.form_input_checkbox:focus + label::before {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form_input_checkbox:focus:not(:checked) + label::before {
+  border-color: #80bdff;
+}
+
+.form_input_checkbox._error label::before {
+  box-shadow: 0 0 0 1rem rgba(253, 0, 0, 1);
+}
+
+.form_input._error {
+  background-color: tomato;
+}
+
+.form_input:required:valid {
+  background-color: white;
+  border: 3px solid rgb(0, 253, 114);
+}
+
+.form_input:required:invalid {
+  border: 3px solid rgb(253, 101, 101);
+}
+
+input[type=checkbox] {
+  transform: scale(1.5);
+}
+
+.modal__close-button {
+  background: #ff0000;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background: none;
+  cursor: pointer;
+  transition: .3s;
+  outline: none;
+  cursor: pointer;
+}
+
+.modal__close-button:hover {
+  transition: .3s;
+  transform: rotate(180deg);
+}
+
+.modal__submit-button {
+  background: whitesmoke;
+  padding: 10px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 5px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal__submit-button:hover {
+  opacity: 0.8;
+}
+
+.modal__other-form {
+  background: transparent;
+  padding: 10px 20px;
+  margin: 8px 0;
+  border: none;
+  border-left: 3px ridge black;
+  border-right: 3px ridge black;
+  border-radius: 5px;
+  position: absolute;
+  height: 30px;
+  left: 0;
+  bottom: 0;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal__other-form:hover {
+  opacity: 0.8;
+}
+
+.modal__title {
+  font-size: 2.4rem;
+  font-family: 'Noto Sans', sans-serif;
+  text-transform: uppercase;
+  margin: 0 0 15px;
+}
+
+main {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0;
+  flex-grow: 1;
+  background: rgb(200, 235, 255);
+}
+
+.main__container {
+  padding: 10px 10px 10px 10px;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, 350px);
+  grid-template-rows: repeat(auto-fit, 500px);
+}
+
+.main__container div {
+  height: 500px;
+  background-color:rgb(68, 187, 255);
+  margin: 2px;
+}
+
+.ad {
+  text-align: center;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ad-image img {
+  max-width: 100%;
+  max-height: 320px;
+  height: auto;
+}
+
+.more-ad-button{
+  margin: 10px auto;
+  padding: 0 2vw;
+  width: 15%;
+  min-width: 150px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(68, 187, 255);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.more-ad-button:hover {
+  background: rgb(43, 156, 221);
+}
+
+.more-ad-button:active {
+  background: rgb(126, 183, 216);
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2vw;
+  height: 70px;
+  flex-shrink: 0;
+  background: rgb(68, 187, 255);
+  border-width: 2.5px;
+  border-style: inset;
+  border-color: blue;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+footer div {
+  color:rgb(240, 240, 255);
+}
+
+@media screen and (min-width: 1280px) {
+  .logo {
+    width: 100px;
+    height: 100px;
+}
+
+.title {
+    font-size: 48px;
+}
+
+.but {
+  font-size: 24px;
+}
+
+.more-ad-button{
+  font-size: 24px;
+}
+
+}
+
+@media screen and (min-width: 400px) and (max-width: 800px) {
+  .headerContent {
+    margin: 0;
+    flex-direction: column;
+  }
+  .menu {
+    margin:0;
+    padding:0;
+    flex-direction: column;
+  }
+  .but {
+    margin: 0 auto;
+    padding: 15px 2vw;
+    width: min-content;
+  }
+  .logo-and-title {
+    justify-content: center;
+  }
+  footer {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .modal__content {
+    padding: 50px 50px 100px 50px;
+  }
+
+  .modal__submit-button {
+    padding: 10px 20px 20px 20px;
+    width: 100%;
+  }
+
+  .modal__other-form {
+    text-align: center;
+    margin: -52px 0;
+    right: 0;
+    bottom: 0;
+  }
+  .greeting {
+    font-size: 16px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .title {
+    display: none;
+  }
+
+  .but {
+    font-size: 14px;
+    padding: 5px 2vw;
+  }
+
+  .main__container {
+    padding: 5px 5px 5px 5px;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, 175px);
+    grid-template-rows: repeat(auto-fit, 250px);
+  }
+  
+  .main__container div {
+    height: 250px;
+    background-color:rgb(68, 187, 255);
+    margin: 2px;
+  }
+  
+  .ad {
+    font-size: 14px;
+    padding: 3px;
+  }
+  
+  .ad-image img {
+    max-height: 160px;
+  }
+  footer {
+    font-size: 14px;
+  }
+}
+
+/* LiveReload*/

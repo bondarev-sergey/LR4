@@ -1,0 +1,24 @@
+.adObj {
+  text-align: left;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.adObj-image img {
+    max-width: 100%;
+    max-height: 480px;
+    height: auto;
+}
+
+.adObj-header {
+    font-size: 28px;
+    font-weight: bolder;
+    font-family: 'Noto Sans', sans-serif;
+}
